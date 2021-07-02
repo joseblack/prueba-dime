@@ -8,7 +8,7 @@
                     <strong>Info!</strong> Los campos con (*) son obligatorios.
                 </div>
             <div class="card">
-                <div class="card-header">{{ __('Crear empleado') }}</div>
+                <div class="card-header">{{ __('Editar empleado') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('empleados.update', $empleado) }}">
@@ -71,12 +71,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <select id="inputArea" name="areaId" class="form-control">
-                                        <option selected value="">Choose...</option>
+                                        <option>Chose...</option>
                                         @foreach ($areas as $area)
                                           @if($empleado->area_id == $area->id)
-                                            <option selected value="{{ $empleado->area_id }}">{{ $area->nombre }}</option>
+                                            <option selected value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                            @else
+                                            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                           @endif
-                                          <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                            
                                         @endforeach
                                         <option>...</option>
                                     </select>
@@ -99,30 +101,53 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="boletin" class="col-md-4 col-form-label text-md-right">{{ __('Boletin *') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <select id="inputBoletin" name="boletin" class="form-control">
-                                        <option value="">Choose...</option>
-                                        @if($empleado->boletin == 1)
-                                          <option selected value="1">Si recibir</option>
-                                          <option value="0">No recibir</option>
-                                        @endif
-                                        @if($empleado->boletin == 0)
-                                          <option selected value="0">No recibir</option>
-                                          <option value="1">Si recibir</option>
-                                        @endif
-                                        <option>...</option>
-                                    </select>
+                            <div class="col-md-4"></div>
+                            <div class=" col-md-6">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @if($empleado->boletin)
+                                        <input type="checkbox" class="form-check-input" id="boletin" name="boletin" value="{{$empleado->boletin}}" checked>Recibir boletin
+                                        @else
+                                        <input type="checkbox" class="form-check-input" id="boletin" name="boletin" value="1">Recibir boletin
+                                        @endif 
+                                    </label>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="roles" class="col-md-4 col-form-label text-md-right">{{ __('Roles *') }}</label>
+                            @foreach ($roles as $rol)
+                            <div class=" col-md-6">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @php    
+                                            $counter = 0;
+                                        @endphp
+                                        
+                                        @foreach ($empRoles as $empRole)
+                                            @if ($empRole->rol_id == $rol->id)
+                                                @php 
+                                                    $counter++;
+                                                @endphp
+                                                <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $rol->id }}" checked>{{ $rol->nombre }}
+                                            @endif                                         
+                                        @endforeach
+                                        
+                                        @if ($counter == 0)
+                                             <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $rol->id }}">{{ $rol->nombre }}
+                                        @endif
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                            @endforeach
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Guardar') }}
+                                    {{ __('Update') }}
                                 </button>
                             </div>
                         </div>

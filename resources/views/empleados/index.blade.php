@@ -7,7 +7,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Employees') }}</div>
 
@@ -26,16 +26,16 @@
                         </div>
                     </div>    
 
-                    <table class="table table-hover table-vcenter table-responsive">
+                    <table class="table table-hover table-vcenter table-responsive-sm">
                         <thead>
                             <tr>
-                                <th style="text-transform: capitalize">Nombre</th>
-                                <th style="text-transform: capitalize">Email</th>
-                                <th style="text-transform: capitalize">Sexo</th>
-                                <th style="text-transform: capitalize">Area</th>
-                                <th style="text-transform: capitalize">Boletin</th>
-                                <th style="text-transform: capitalize">Modificar</th>
-                                <th style="text-transform: capitalize">Eliminar</th>
+                                <th><i class="fa fa-fw fas fa-user mr-1"></i>Nombre</th>
+                                <th><i class="fa fa-fw fas fa-mail-bulk"></i>Email</th>
+                                <th><i class="fa fa-fw fas fa-venus-mars"></i>Sexo</th>
+                                <th><i class="fa fa-fw fas fa-chart-area"></i>Area</th>
+                                <th><i class="fa fa-fw fas fa-train"></i>Boletin</th>
+                                <th>Modificar</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,8 +44,8 @@
                                 <td>{{ $empleado->nombre }}</td>
                                 <td>{{ $empleado->email }}</td>
                                 <td>{{ $empleado->sexo }}</td>
-                                <td>{{ $empleado->area_id }}</td>
-                                <td>{{ $empleado->boletin }}</td>
+                                <td>{{ $empleado->area }}</td>
+                                <td>{{ $empleado->boletin ? "Si" : "No" }}</td>
                                 <td> 
                                     <a href="{{ route('empleados.edit', $empleado) }}" class="btn btn-warning btn-sm">                                       
                                         <i class="fas fa-edit"></i>
@@ -53,7 +53,7 @@
                                 </td>
                                 <td>
                                     <!-- Button trigger modal -->
-                                    <form action="{{ route('empleados.destroy', $empleado) }}" id="from1" name="from1" method="post">
+                                <form action="{{ route('empleados.destroy', $empleado) }}" id="from1" name="from1" method="post">
                                     @csrf
                                     @method('DELETE')                                                                  
                                     <button class="btn btn-danger btn-sm" type="submit" 

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="alert alert-info">
                 <strong>Info!</strong> Los campos con (*) son obligatorios.
             </div>
@@ -86,7 +86,7 @@
                             <label for="descripcion" class="col-md-4 col-form-label text-md-right">{{ __('Descripción *') }}</label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" rows="3" id="descripcion" name="descripcion"></textarea>
+                                <textarea class="form-control" rows="3" id="descripcion" name="descripcion" placeholder="Descripción empleado"></textarea>
                                 @error('descripcion')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -96,38 +96,28 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="boletin" class="col-md-4 col-form-label text-md-right">{{ __('Boletin *') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <select id="inputBoletin" name="boletin" class="form-control">
-                                        <option selected value="">Choose...</option>
-                                        <option value="1">Si recibir</option>
-                                        <option value="0">No recibir</option>
-                                        <option>...</option>
-                                    </select>
+                            <div class="col-md-4"></div>
+                            <div class=" col-md-6">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" id="boletin" name="boletin" value="1">Recibir boletin
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="roles" class="col-md-4 col-form-label text-md-right">{{ __('Roles *') }}</label>
-                           
+                            @foreach ($roles as $rol)
                             <div class=" col-md-6">
-                                <input type="checkbox" class="form-check-input" id="desarrollador" name="desarrollador" value="1">
-                                <label class="form-check-label" for="customCheck1">Profesional de proyectos - Desarrollador</label>
-                            </div>
-                            
-                            <div class="col-md-4"></div>
-                            <div class=" col-md-6">
-                                <input type="checkbox" class="form-check-input" id="gerente" name="gerente" value="2">
-                                <label class="form-check-label" for="customCheck1">Gerente estratégico</label>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" id="{{ substr($rol->nombre, 0, 3) }}" name="roles[]" value="{{ $rol->id }}">{{ $rol->nombre }}
+                                    </label>
+                                </div>
                             </div>
                             <div class="col-md-4"></div>
-                            <div class=" col-md-6">
-                                <input type="checkbox" class="form-check-input" id="auxiliar" name="auxiliar" value="3">
-                                <label class="form-check-label" for="customCheck1">Auxiliar administrativo</label>
-                            </div>
+                            @endforeach
                         </div>
 
                         <div class="form-group row mb-0">
